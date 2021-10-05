@@ -1,26 +1,7 @@
-TEMPLATE = app
-CONFIG += console c++11
-CONFIG -= app_bundle
-CONFIG -= qt
+TEMPLATE = subdirs
 
-INCLUDEPATH += ../PostgreSQL/include
+SUBDIRS += GeologyDatabase_lib \
+           GeologyDatabase_test_app
 
-LIBS += -L$$PWD/../PostgreSQL/lib/
-
-LIBS += -lpq
-
-SOURCES += $$PWD/src/main.cpp
-
-SOURCES += \
-        $$PWD/src/ConnectionParams.cpp \
-        $$PWD/src/PGConnection.cpp \
-        $$PWD/src/PGConnectionCtrl.cpp \
-
-
-HEADERS += \
-    $$PWD/src/ConnectionParams.h \
-    $$PWD/src/PGConnection.h \
-    $$PWD/src/PGConnectionCtrl.h
-
-
-DESTDIR += $$PWD/bin
+GeologyDatabase_lib.file = GeologyDatabase_lib.pro
+GeologyDatabase_test_app.file = GeologyDatabase_test_app.pro

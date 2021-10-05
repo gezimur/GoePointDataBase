@@ -3,9 +3,8 @@
 namespace geology
 {
 
-PGConnection::PGConnection(const ConnectionParams& crParams)
+PGConnection::PGConnection(const ConnectionParams& crParams) ///@todo connect disconnect
 {
-
     m_spConnection.reset( PQsetdbLogin(crParams.getHots().c_str(),
                                        std::to_string(crParams.getPort()).c_str(),
                                        nullptr,

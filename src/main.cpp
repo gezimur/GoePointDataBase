@@ -1,6 +1,8 @@
 #include <iostream>
 
-#include "PGConnectionCtrl.h"
+#include <windows.h>
+
+#include "include/IDataBaseCtrl.h"
 
 int main()
 {
@@ -8,11 +10,13 @@ int main()
 
     try
     {
-        geology::PGConnectionCtrl ConnCtrl(3);
+        auto upCtrl = geology::make_ctrl(geology::ConnectionParams{});
 
-        auto spCon = ConnCtrl.connection();
+        auto Res = upCtrl->load(geology::IDataBaseCtrl::e_user, 1, {{"username", "zgm_manger"}, {"password", "123"}}, "");
 
-        ConnCtrl.freeConnection(spCon);
+        Res = upCtrl->load(geology::IDataBaseCtrl::e_order, 10, {}, "");
+
+        Res = upCtrl->load(geology::IDataBaseCtrl::e_customer, 10, {}, "");
 
         return 0;
     }
