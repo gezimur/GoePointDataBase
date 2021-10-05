@@ -16,7 +16,7 @@ const std::string& User::getId() const
 
 std::string User::getTableName()
 {
-    return "Users";
+    return "users";
 }
 
 std::vector<std::string> User::getShortInfoNames()

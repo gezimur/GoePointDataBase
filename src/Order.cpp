@@ -16,7 +16,7 @@ const std::string& Order::getId() const
 
 std::string Order::getTableName()
 {
-    return "Orders";
+    return "orders";
 }
 
 std::vector<std::string> Order::getShortInfoNames()

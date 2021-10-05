@@ -11,12 +11,12 @@ Customer::Customer(const std::map<std::string, std::string>& mVal)
 
 const std::string& Customer::getId() const
 {
-    return m_mValues.at("id");
+    return m_mValues.at("passport_number");
 }
 
 std::string Customer::getTableName()
 {
-    return "Customer";
+    return "customer";
 }
 
 std::vector<std::string> Customer::getShortInfoNames()
@@ -26,7 +26,6 @@ std::vector<std::string> Customer::getShortInfoNames()
 
 void Customer::setShortInfo(const std::vector<std::string>& vShortInfo)
 {
-    m_mValues["id"] = vShortInfo[static_cast<int>(short_info::id)];
     m_mValues["full_name"] = vShortInfo[static_cast<int>(short_info::full_name)];
     m_mValues["phone"] = vShortInfo[static_cast<int>(short_info::phone)];
     m_mValues["email"] = vShortInfo[static_cast<int>(short_info::email)];
@@ -39,7 +38,6 @@ std::vector<std::string> Customer::getFullInfoNames()
 
 void Customer::setFullInfo(const std::vector<std::string>& vShortInfo)
 {
-    m_mValues["id"] = vShortInfo[static_cast<int>(full_info::id)];
     m_mValues["full_name"] = vShortInfo[static_cast<int>(full_info::full_name)];
     m_mValues["passport_number"] = vShortInfo[static_cast<int>(full_info::passport_number)];
     m_mValues["passport_gived"] = vShortInfo[static_cast<int>(full_info::passport_gived)];

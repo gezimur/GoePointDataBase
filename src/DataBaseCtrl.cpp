@@ -18,6 +18,11 @@ std::string make_select(const std::vector<std::string>& vNames, const std::strin
     return strSelect;
 }
 
+std::string make_inner_join()
+{
+    return " INNER JOIN users ON orders.executor = users.id INNER JOIN customer ON orders.customer = customer.passport_number";
+}
+
 std::string make_filter(const std::map<std::string, std::string>& mFilter)
 {
     if (mFilter.empty())
@@ -69,7 +74,9 @@ std::string make_insert(const std::map<std::string, std::string>& mValues, const
     strKeys += ")";
     strValues += ")";
 
-    strInsert += strKeys + strValues;
+    std::string strOnConflict = " ON CONFLICT ON CONSTRAINT " + strTableName + "_key DO " + make_update(mValues, strTableName);
+
+    strInsert += strKeys + strValues + strOnConflict;
     return strInsert;
 }
 
@@ -77,7 +84,7 @@ std::string make_update(const std::map<std::string, std::string>& mValues, const
 {
     std::string strUpdate{"UPDATE "};
 
-    strUpdate += strTableName;
+//    strUpdate += strTableName;
 
     strUpdate += " SET ";
 
@@ -111,6 +118,39 @@ DataBaseResponce DataBaseCtrl::load(enu_tables eTable, int iCnt, const std::map<
     }
 }
 
+DataBaseResponce DataBaseCtrl::loadOrderGreedy(int iCnt, const std::map<std::string, std::string>& mFilter, const std::string& strSortType)
+{
+    std::vector<std::string> vSelect{"orders.id", "orders.work_type", "orders.order_date", "orders.deadline", "orders.place", "orders.status",
+                        "users.full_name as executor",
+                        "customer.full_name as customer", "customer.passport_number", "customer.passport_gived", "customer.passport_date", "customer.snils", "customer.phone", "customer.email"};
+
+    auto strRequest = make_select(vSelect, "Orders");
+    strRequest += make_inner_join();
+    strRequest += make_filter(mFilter);
+    strRequest += make_sort(strSortType);
+    strRequest += make_limit(iCnt);
+    strRequest += ";";
+
+    auto pRes = PQexec(m_Connection.get(), strRequest.c_str());
+
+    std::vector<std::map<std::string, std::string>> vRes;
+    auto iRows = PQntuples(pRes);
+    auto iCols = PQnfields(pRes);
+    for (int iRow = 0; iRow < iRows; ++iRow)
+    {
+        std::map<std::string, std::string> mSelected;
+        for (int iCol = 0; iCol < iCols; ++iCol)
+            mSelected[PQfname(pRes, iCol)] = PQgetvalue(pRes, iRow, iCol);
+
+        vRes.push_back(mSelected);
+    }
+
+    if (vRes.empty())
+        return DataBaseResponce{PQerrorMessage(m_Connection.get())};
+
+    return DataBaseResponce{"", vRes};
+}
+
 DataBaseResponce DataBaseCtrl::loadById(enu_tables eTable, int iId)
 {
     switch (eTable) {
@@ -125,29 +165,15 @@ DataBaseResponce DataBaseCtrl::loadById(enu_tables eTable, int iId)
     }
 }
 
-DataBaseResponce DataBaseCtrl::add(enu_tables eTable, const std::map<std::string, std::string>& mArgs)
+DataBaseResponce DataBaseCtrl::write(enu_tables eTable, const std::map<std::string, std::string>& mArgs)
 {
     switch (eTable) {
     case enu_tables::e_order:
-        return add<Order>( Order{mArgs});
+        return write<Order>( Order{mArgs});
     case enu_tables::e_customer:
-        return add<Customer>( Customer{mArgs});
+        return write<Customer>( Customer{mArgs});
     case enu_tables::e_user:
-        return add<User>( User{mArgs});
-    default:
-        return DataBaseResponce{"invalid request"};
-    }
-}
-
-DataBaseResponce DataBaseCtrl::edit(enu_tables eTable, const std::map<std::string, std::string>& mArgs)
-{
-    switch (eTable) {
-    case enu_tables::e_order:
-        return edit<Order>( Order{mArgs});
-    case enu_tables::e_customer:
-        return edit<Customer>( Customer{mArgs});
-    case enu_tables::e_user:
-        return edit<User>( User{mArgs});
+        return write<User>( User{mArgs});
     default:
         return DataBaseResponce{"invalid request"};
     }

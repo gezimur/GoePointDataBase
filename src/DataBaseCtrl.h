@@ -15,6 +15,8 @@ namespace geology
 
 std::string make_select(const std::vector<std::string>& vNames, const std::string& strTableName);
 
+std::string make_inner_join();
+
 std::string make_filter(const std::map<std::string, std::string>& mFilter);
 
 std::string make_sort(const std::string& strSortType);
@@ -33,11 +35,11 @@ public:
 
     DataBaseResponce load(enu_tables eTable, int iCnt, const std::map<std::string, std::string>& mFilter, const std::string& strSortType) final;
 
+    DataBaseResponce loadOrderGreedy(int iCnt, const std::map<std::string, std::string>& mFilter, const std::string& strSortType) final;
+
     DataBaseResponce loadById(enu_tables eTable, int iId) final;
 
-    DataBaseResponce add(enu_tables eTable, const std::map<std::string, std::string>& mArgs) final;
-
-    DataBaseResponce edit(enu_tables eTable, const std::map<std::string, std::string>& mArgs) final;
+    DataBaseResponce write(enu_tables eTable, const std::map<std::string, std::string>& mArgs) final;
 
 private:
     template<typename t_Table>
@@ -92,24 +94,9 @@ private:
     }
 
     template<typename t_Table>
-    DataBaseResponce add(const t_Table& crValue)
+    DataBaseResponce write(const t_Table& crValue)
     {
         std::string strRequest = make_insert(crValue.getValuesMap(), t_Table::getTableName());
-        strRequest += ";";
-
-        auto pRes = PQexec(m_Connection.get(), strRequest.c_str());
-
-        if (PQresultStatus(pRes) != PGRES_COMMAND_OK)
-            return DataBaseResponce{PQerrorMessage(m_Connection.get())};
-
-        return DataBaseResponce{};
-    }
-
-    template<typename t_Table>
-    DataBaseResponce edit(const t_Table& crValue)
-    {
-        std::string strRequest = make_update(crValue.getValuesMap(), t_Table::getTableName());
-        strRequest += make_filter({{"id", crValue.getId()}});
         strRequest += ";";
 
         auto pRes = PQexec(m_Connection.get(), strRequest.c_str());

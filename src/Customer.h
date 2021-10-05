@@ -11,8 +11,7 @@ public:
 
     enum class short_info
     {
-        id = 0,
-        full_name,
+        full_name = 0,
         phone,
         email,
         info_cnt
@@ -20,8 +19,7 @@ public:
 
     enum class full_info
     {
-        id = 0,
-        full_name,
+        full_name = 0,
         passport_number,
         passport_gived, // rename gave
         passport_date,
