@@ -20,7 +20,7 @@ std::string make_select(const std::vector<std::string>& vNames, const std::strin
 
 std::string make_inner_join()
 {
-    return " INNER JOIN users ON orders.executor = users.id INNER JOIN customer ON orders.customer = customer.passport_number";
+    return " LEFT JOIN users ON orders.executor = users.id LEFT JOIN customer ON orders.customer = customer.passport_number";
 }
 
 std::string make_filter(const std::map<std::string, std::string>& mFilter)

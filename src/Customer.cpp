@@ -21,7 +21,7 @@ std::string Customer::getTableName()
 
 std::vector<std::string> Customer::getShortInfoNames()
 {
-    return {"id", "full_name", "phone", "email"};
+    return {"full_name", "passport_number", "passport_gived", "passport_date", "snils", "phone", "email"};
 }
 
 void Customer::setShortInfo(const std::vector<std::string>& vShortInfo)
@@ -33,7 +33,7 @@ void Customer::setShortInfo(const std::vector<std::string>& vShortInfo)
 
 std::vector<std::string> Customer::getFullInfoNames()
 {
-    return {"id", "full_name", "passport_number", "passport_gived", "passport_date", "snils", "phone", "email"};
+    return {"full_name", "passport_number", "passport_gived", "passport_date", "snils", "phone", "email"};
 }
 
 void Customer::setFullInfo(const std::vector<std::string>& vShortInfo)
