@@ -74,17 +74,15 @@ std::string make_insert(const std::map<std::string, std::string>& mValues, const
     strKeys += ")";
     strValues += ")";
 
-    std::string strOnConflict = " ON CONFLICT ON CONSTRAINT " + strTableName + "_key DO " + make_update(mValues, strTableName);
+    std::string strOnConflict = " ON CONFLICT ON CONSTRAINT " + strTableName + "_key DO " + make_update(mValues);
 
     strInsert += strKeys + strValues + strOnConflict;
     return strInsert;
 }
 
-std::string make_update(const std::map<std::string, std::string>& mValues, const std::string& strTableName)
+std::string make_update(const std::map<std::string, std::string>& mValues)
 {
     std::string strUpdate{"UPDATE "};
-
-//    strUpdate += strTableName;
 
     strUpdate += " SET ";
 

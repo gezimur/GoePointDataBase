@@ -1,5 +1,7 @@
 #include "Order.h"
 
+#include "DataBase_staff.h"
+
 namespace geology
 {
 
@@ -19,17 +21,50 @@ std::string Order::getTableName()
     return "orders";
 }
 
-std::vector<std::string> Order::getShortInfoNames()
+std::string Order::makeFilterString() const
 {
-    return {"id", "work_type", "order_date", "place"};
-}
+    if (m_mValues.empty())
+        return "";
 
-void Order::setShortInfo(const std::vector<std::string>& vShortInfo)
-{
-    m_mValues["id"] = vShortInfo[static_cast<int>(short_info::id)];
-    m_mValues["work_type"] = vShortInfo[static_cast<int>(short_info::work_type)];
-    m_mValues["order_date"] = vShortInfo[static_cast<int>(short_info::order_date)];
-    m_mValues["place"] = vShortInfo[static_cast<int>(short_info::place)];
+    std::string strRes;
+
+    auto it = m_mValues.find("id");
+    if (m_mValues.end() != it)
+        strRes += make_strict_filter(*it);
+
+    it = m_mValues.find("work_type");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+    it = m_mValues.find("order_date");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
+
+    it = m_mValues.find("deadline");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
+
+    it = m_mValues.find("place");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+    it = m_mValues.find("status");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
+
+    it = m_mValues.find("email");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+//    it = m_mValues.find("executor");
+//    if (m_mValues.end() != it)
+//        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+//    it = m_mValues.find("customer");
+//    if (m_mValues.end() != it)
+//        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+    return " WHERE " + strRes;
 }
 
 std::vector<std::string> Order::getFullInfoNames()

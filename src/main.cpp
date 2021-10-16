@@ -30,9 +30,9 @@ int main()
 
         print_res(Res);
 
-        Res = upCtrl->loadOrderGreedy(10, {{"work_type", "simple work"}}, "");
+//        Res = upCtrl->loadOrderGreedy(10, {{"work_type", "simple work"}}, "");
 
-        print_res(Res);
+//        print_res(Res);
 
 //        Res = upCtrl->write(geology::IDataBaseCtrl::e_customer, {{"full_name", "gena ziganshin"}, {"passport_number", "123456 1234"}, {"passport_gived", "by man"}, {"passport_date", "11-05-2015"}});
 
@@ -42,9 +42,9 @@ int main()
 
 //        print_res(Res);
 
-//        Res = upCtrl->load(geology::IDataBaseCtrl::e_order, 10, {{"work_type", "simple work"}}, "");
+        Res = upCtrl->load(geology::IDataBaseCtrl::e_order, 10, {{"work_type", "work"}}, "");
 
-//        print_res(Res);
+        print_res(Res);
 
         return 0;
     }

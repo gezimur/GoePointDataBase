@@ -15,8 +15,7 @@ struct IDataType
 
     static std::string getTableName();
 
-    static std::vector<std::string> getShortInfoNames();
-    virtual void setShortInfo(const std::vector<std::string>& vShortInfo) = 0;
+    virtual std::string makeFilterString() const = 0;
 
     static std::vector<std::string> getFullInfoNames();
     virtual void setFullInfo(const std::vector<std::string>& vFullInfo) = 0;

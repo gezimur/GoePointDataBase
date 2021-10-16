@@ -1,5 +1,7 @@
 #include "User.h"
 
+#include "DataBase_staff.h"
+
 namespace geology
 {
 
@@ -19,17 +21,34 @@ std::string User::getTableName()
     return "users";
 }
 
-std::vector<std::string> User::getShortInfoNames()
+std::string User::makeFilterString() const
 {
-    return {"id", "full_name", "role"};
-}
+    if (m_mValues.empty())
+        return "";
 
-void User::setShortInfo(const std::vector<std::string>& vShortInfo)
-{
+    std::string strRes;
 
-    m_mValues["id"] = vShortInfo[static_cast<int>(short_info::id)];
-    m_mValues["full_name"] = vShortInfo[static_cast<int>(short_info::full_name)];
-    m_mValues["role"] = vShortInfo[static_cast<int>(short_info::role)];
+    auto it = m_mValues.find("id");
+    if (m_mValues.end() != it)
+        strRes += make_strict_filter(*it);
+
+    it = m_mValues.find("full_name");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+    it = m_mValues.find("role");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
+
+    it = m_mValues.find("username");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
+
+    it = m_mValues.find("password");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
+
+    return " WHERE " + strRes;
 }
 
 std::vector<std::string> User::getFullInfoNames()

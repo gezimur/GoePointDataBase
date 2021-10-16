@@ -37,8 +37,7 @@ public:
 
     static std::string getTableName();
 
-    static std::vector<std::string> getShortInfoNames();
-    void setShortInfo(const std::vector<std::string>& vShortInfo) final;
+    std::string makeFilterString() const final;
 
     static std::vector<std::string> getFullInfoNames();
     void setFullInfo(const std::vector<std::string>& vFullInfo) final;

@@ -25,7 +25,7 @@ std::string make_limit(int iCnt);
 
 std::string make_insert(const std::map<std::string, std::string>& mValues, const std::string& strTableName);
 
-std::string make_update(const std::map<std::string, std::string>& mValues, const std::string& strTableName);
+std::string make_update(const std::map<std::string, std::string>& mValues);
 
 class DataBaseCtrl: public IDataBaseCtrl
 {
@@ -45,8 +45,8 @@ private:
     template<typename t_Table>
     DataBaseResponce load(int iCnt, const t_Table& crFilter, const std::string& strSortType)
     {
-        auto strRequest = make_select(t_Table::getShortInfoNames(), t_Table::getTableName());
-        strRequest += make_filter(crFilter.getValuesMap());
+        auto strRequest = make_select(t_Table::getFullInfoNames(), t_Table::getTableName());
+        strRequest += crFilter.makeFilterString();
         strRequest += make_sort(strSortType);
         strRequest += make_limit(iCnt);
         strRequest += ";";

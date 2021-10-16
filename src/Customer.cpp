@@ -1,5 +1,7 @@
 #include "Customer.h"
 
+#include "DataBase_staff.h"
+
 namespace geology
 {
 
@@ -19,16 +21,42 @@ std::string Customer::getTableName()
     return "customer";
 }
 
-std::vector<std::string> Customer::getShortInfoNames()
+std::string Customer::makeFilterString() const
 {
-    return {"full_name", "passport_number", "passport_gived", "passport_date", "snils", "phone", "email"};
-}
+    if (m_mValues.empty())
+        return "";
 
-void Customer::setShortInfo(const std::vector<std::string>& vShortInfo)
-{
-    m_mValues["full_name"] = vShortInfo[static_cast<int>(short_info::full_name)];
-    m_mValues["phone"] = vShortInfo[static_cast<int>(short_info::phone)];
-    m_mValues["email"] = vShortInfo[static_cast<int>(short_info::email)];
+    std::string strRes;
+
+    auto it = m_mValues.find("full_name");
+    if (m_mValues.end() != it)
+        strRes += make_lax_filter(*it);
+
+    it = m_mValues.find("passport_number");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+    it = m_mValues.find("passport_gived");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+    it = m_mValues.find("passport_date");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
+
+    it = m_mValues.find("snils");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+    it = m_mValues.find("phone");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+    it = m_mValues.find("email");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
+
+    return " WHERE " + strRes;
 }
 
 std::vector<std::string> Customer::getFullInfoNames()
