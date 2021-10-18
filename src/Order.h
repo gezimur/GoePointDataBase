@@ -21,12 +21,14 @@ public:
     enum class full_info
     {
         id = 0,
+        work_class,
         work_type,
         order_date,
         deadline,
         place,
         status,
-        executor,
+        ingeneer,
+        fielder,
         customer,
         info_cnt
     };

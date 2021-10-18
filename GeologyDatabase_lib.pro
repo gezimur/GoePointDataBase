@@ -3,11 +3,11 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-INCLUDEPATH += $$PWD/../PostgreSQL/include \
+INCLUDEPATH += $$PWD/../../PostgreSQL/14/include \
                $$PWD/include \
                $$PWD/src
 
-LIBS += -L$$PWD/../PostgreSQL/lib/
+LIBS += -L$$PWD/../../PostgreSQL/14/lib/
 
 LIBS += -lpq
 

@@ -16,7 +16,7 @@ create table customer(
 	full_name VARCHAR(150) NOT NULL,
 
 	passport_number VARCHAR(12),
-	passport_gived VARCHAR(100) NOT NULL,
+	passport_gived VARCHAR(500) NOT NULL,
 	passport_date date NOT NULL,
 
 	snils VARCHAR(50),
@@ -29,20 +29,22 @@ create table customer(
 create table orders
 (
 	id SERIAL,
-	work_type VARCHAR(50),
+	work_class VARCHAR(150),
+	work_type VARCHAR(150),
 	order_date DATE DEFAULT current_date,
 	deadline DATE DEFAULT (current_date + 7) CHECK(
 		deadline > order_date
 	),
-	place VARCHAR(100) NOT NULL,
+	place VARCHAR(500) NOT NULL,
 	status INTEGER DEFAULT 0 CHECK(
-		status = 0 OR -- opened
-		status = 1 OR -- started
-		status = 2 OR -- complited
-		status = 3 -- closed
+		status = 0 OR 
+		status = 1 OR 
+		status = 2 OR 
+		status = 3
 	),
-	executor INTEGER REFERENCES users ON DELETE SET NULL,
-	customer VARCHAR(12) REFERENCES customer ON DELETE SET NULL,
+	ingeneer INTEGER REFERENCES users ON DELETE SET NULL,
+	fielder INTEGER REFERENCES users ON DELETE SET NULL,
+	customer VARCHAR(150) REFERENCES customer ON DELETE SET NULL,
 
 	CONSTRAINT orders_key PRIMARY KEY (id)
 );

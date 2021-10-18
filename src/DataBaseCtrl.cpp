@@ -20,7 +20,7 @@ std::string make_select(const std::vector<std::string>& vNames, const std::strin
 
 std::string make_inner_join()
 {
-    return " LEFT JOIN users ON orders.executor = users.id LEFT JOIN customer ON orders.customer = customer.passport_number";
+    return " LEFT JOIN customer ON orders.customer = customer.passport_number";
 }
 
 std::string make_filter(const std::map<std::string, std::string>& mFilter)
@@ -118,8 +118,9 @@ DataBaseResponce DataBaseCtrl::load(enu_tables eTable, int iCnt, const std::map<
 
 DataBaseResponce DataBaseCtrl::loadOrderGreedy(int iCnt, const std::map<std::string, std::string>& mFilter, const std::string& strSortType)
 {
-    std::vector<std::string> vSelect{"orders.id", "orders.work_type", "orders.order_date", "orders.deadline", "orders.place", "orders.status",
-                        "users.full_name as executor",
+    std::vector<std::string> vSelect{"orders.id", "orders.work_type", "orders.work_class", "orders.order_date", "orders.deadline", "orders.place", "orders.status",
+                        "(select users.full_name from users where users.id = orders.ingeneer) as ingeneer",
+                        "(select users.full_name from users where users.id = orders.fielder) as fielder",
                         "customer.full_name as customer", "customer.passport_number", "customer.passport_gived", "customer.passport_date", "customer.snils", "customer.phone", "customer.email"};
 
     auto strRequest = make_select(vSelect, "Orders");
