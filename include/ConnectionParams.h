@@ -8,6 +8,8 @@ namespace geology
 class ConnectionParams
 {
 public:
+    ConnectionParams() = default;
+    explicit ConnectionParams(const std::string& strConfigPath);
 
     const std::string& getHots() const noexcept;
     int getPort() const noexcept;

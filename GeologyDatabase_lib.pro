@@ -19,8 +19,8 @@ SOURCES += \
             $$PWD/src/Order.cpp \
             $$PWD/src/User.cpp \
             $$PWD/include/IDataBaseCtrl.cpp \
-            include/DataBaseResponce.cpp \
-            src/DataBase_staff.cpp
+            $$PWD/include/DataBaseResponce.cpp \
+            $$PWD/src/DataBase_staff.cpp
 
 HEADERS += \
     $$PWD/src/AuthClientWdg.h \
@@ -33,8 +33,9 @@ HEADERS += \
     $$PWD/src/Order.h \
     $$PWD/src/User.h \
     $$PWD/include/IDataBaseCtrl.h \
-    include/DataBaseResponce.h \
-    src/DataBase_staff.h
+    $$PWD/include/DataBaseResponce.h \
+    $$PWD/src/DataBase_staff.h
+
 
 DESTDIR += $$PWD/lib
 TARGET = GeologyDatabase_lib

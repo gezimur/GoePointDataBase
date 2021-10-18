@@ -24,7 +24,7 @@ int main()
 
     try
     {
-        auto upCtrl = geology::make_ctrl(geology::ConnectionParams{});
+        auto upCtrl = geology::make_ctrl(geology::ConnectionParams{"test_config\\config.txt"});
 
         auto Res = upCtrl->load(geology::IDataBaseCtrl::e_user, 1, {{"username", "zgm_manager"}, {"password", "1234"}}, "");
 
