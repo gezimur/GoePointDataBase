@@ -52,6 +52,10 @@ std::string Order::makeFilterString() const
     if (m_mValues.end() != it)
         strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
 
+    it = m_mValues.find("space");
+    if (m_mValues.end() != it)
+        strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
+
     it = m_mValues.find("status");
     if (m_mValues.end() != it)
         strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
@@ -73,7 +77,7 @@ std::string Order::makeFilterString() const
 
 std::vector<std::string> Order::getFullInfoNames()
 {
-    return {"id", "work_type", "work_class", "order_date", "deadline", "place", "status", "ingeneer", "fielder", "customer"};
+    return {"id", "work_type", "work_class", "order_date", "deadline", "place", "space", "status", "ingeneer", "fielder", "customer"};
 }
 
 void Order::setFullInfo(const std::vector<std::string>& vFullInfo)
@@ -84,6 +88,7 @@ void Order::setFullInfo(const std::vector<std::string>& vFullInfo)
     m_mValues["order_date"] = vFullInfo[static_cast<int>(full_info::order_date)];
     m_mValues["deadline"] = vFullInfo[static_cast<int>(full_info::deadline)];
     m_mValues["place"] = vFullInfo[static_cast<int>(full_info::place)];
+    m_mValues["space"] = vFullInfo[static_cast<int>(full_info::space)];
     m_mValues["status"] = vFullInfo[static_cast<int>(full_info::status)];
     m_mValues["ingeneer"] = vFullInfo[static_cast<int>(full_info::ingeneer)];
     m_mValues["fielder"] = vFullInfo[static_cast<int>(full_info::fielder)];

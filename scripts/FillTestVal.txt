@@ -1,4 +1,2 @@
-INSERT INTO users(full_name, role, username, password) 
-	VALUES('zgm_manager', '0', 'zgm_manager', '123');
-INSERT INTO users(full_name, role, username, password)
-	VALUES('zgm_specialist', '1', 'zgm_specialist', '123');
+INSERT INTO users(full_name, username, password) 
+	VALUES('Test User', 'test', '123');

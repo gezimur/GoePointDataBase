@@ -1,10 +1,6 @@
 create table users(
 	id SERIAL,
 	full_name VARCHAR(150) NOT NULL,
-	role INTEGER DEFAULT 0 CHECK(
-		role = 0 OR -- manager
-		role = 1 -- specialist
-	),
 
 	username VARCHAR(50) UNIQUE NOT NULL,
 	password VARCHAR(50) NOT NULL,
@@ -36,6 +32,7 @@ create table orders
 		deadline > order_date
 	),
 	place VARCHAR(500) NOT NULL,
+	space INTEGER DEFAULT 0,
 	status INTEGER DEFAULT 0 CHECK(
 		status = 0 OR 
 		status = 1 OR 

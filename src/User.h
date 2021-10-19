@@ -14,7 +14,6 @@ public:
     {
         id = 0,
         full_name,
-        role,
         info_cnt
     };
 
@@ -22,7 +21,6 @@ public:
     {
         id = 0,
         full_name,
-        role,
         username,
         password,
         info_cnt

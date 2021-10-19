@@ -36,10 +36,6 @@ std::string User::makeFilterString() const
     if (m_mValues.end() != it)
         strRes += (strRes.empty()? "" : " and ") + make_lax_filter(*it);
 
-    it = m_mValues.find("role");
-    if (m_mValues.end() != it)
-        strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
-
     it = m_mValues.find("username");
     if (m_mValues.end() != it)
         strRes += (strRes.empty()? "" : " and ") + make_strict_filter(*it);
@@ -53,14 +49,13 @@ std::string User::makeFilterString() const
 
 std::vector<std::string> User::getFullInfoNames()
 {
-    return {"id", "full_name", "role", "username", "password"};
+    return {"id", "full_name", "username", "password"};
 }
 
 void User::setFullInfo(const std::vector<std::string>& vFullInfo)
 {
     m_mValues["id"] = vFullInfo[static_cast<int>(full_info::id)];
     m_mValues["full_name"] = vFullInfo[static_cast<int>(full_info::full_name)];
-    m_mValues["role"] = vFullInfo[static_cast<int>(full_info::role)];
     m_mValues["username"] = vFullInfo[static_cast<int>(full_info::username)];
     m_mValues["password"] = vFullInfo[static_cast<int>(full_info::password)];
 }

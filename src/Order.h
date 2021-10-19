@@ -26,6 +26,7 @@ public:
         order_date,
         deadline,
         place,
+        space,
         status,
         ingeneer,
         fielder,
