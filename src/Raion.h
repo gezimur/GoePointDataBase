@@ -5,32 +5,22 @@
 namespace geology
 {
 
-class User: public IDataType
+class Raion: public IDataType
 {
-
 public:
 
-    enum class short_info
-    {
-        id = 0,
-        full_name,
-        role,
-        info_cnt
-    };
 
     enum class full_info
     {
         id = 0,
         full_name,
-        role,
-        username,
-        password,
-        info_cnt
+        type,
+        oblast
     };
 
-    User() = default;
+    Raion() = default;
 
-    explicit User(const std::map<std::string, std::string>& mVal);
+    explicit Raion(const std::map<std::string, std::string>& mVal);
 
     const std::string& getId() const final;
 
@@ -40,6 +30,7 @@ public:
 
     static std::vector<std::string> getFullInfoNames();
     void setFullInfo(const std::vector<std::string>& vFullInfo) final;
+
 };
 
 } // namespace geology

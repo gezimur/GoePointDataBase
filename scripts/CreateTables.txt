@@ -48,3 +48,32 @@ create table orders
 
 	CONSTRAINT orders_key PRIMARY KEY (id)
 );
+
+create table oblast(
+
+	id SERIAL,
+	full_name VARCHAR(150) NOT NULL,
+
+
+	CONSTRAINT oblast_key PRIMARY KEY (id)
+);
+
+create table raion(
+
+	id SERIAL,
+	full_name VARCHAR(150) NOT NULL,
+	type INTEGER CHECK(type=0 or type=1),
+	oblast INTEGER REFERENCES oblast ON DELETE CASCADE,
+
+	CONSTRAINT region_key PRIMARY KEY (id)
+);
+
+create table poselenie(
+
+	id SERIAL,
+	full_name VARCHAR(150) NOT NULL,
+	type INTEGER CHECK(type=0 or type=1),
+	raion INTEGER REFERENCES raion ON DELETE CASCADE,
+
+	CONSTRAINT poselenie_key PRIMARY KEY (id)
+);

@@ -41,11 +41,6 @@ public:
 
     static std::vector<std::string> getFullInfoNames();
     void setFullInfo(const std::vector<std::string>& vFullInfo) final;
-
-    const std::map<std::string, std::string>& getValuesMap() const noexcept final;
-
-private:
-    std::map<std::string, std::string> m_mValues;
 };
 
 } // namespace geology

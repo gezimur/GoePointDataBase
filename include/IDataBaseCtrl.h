@@ -17,6 +17,9 @@ struct IDataBaseCtrl
         e_customer = 0,
         e_order,
         e_user,
+        e_oblast,
+        e_raion,
+        e_poselenie,
         e_tables_cnt
     };
 
@@ -29,6 +32,7 @@ struct IDataBaseCtrl
     virtual DataBaseResponce loadById(enu_tables eTable, int iId) = 0;
 
     virtual DataBaseResponce write(enu_tables eTable, const std::map<std::string, std::string>& mArgs) = 0;
+
 };
 
 std::unique_ptr<IDataBaseCtrl> make_ctrl(const ConnectionParams& crParams);

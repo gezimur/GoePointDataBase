@@ -6,7 +6,7 @@ namespace geology
 {
 
 Customer::Customer(const std::map<std::string, std::string>& mVal)
-    : m_mValues(mVal)
+    : IDataType(mVal)
 {
 
 }
@@ -74,11 +74,5 @@ void Customer::setFullInfo(const std::vector<std::string>& vShortInfo)
     m_mValues["phone"] = vShortInfo[static_cast<int>(full_info::phone)];
     m_mValues["email"] = vShortInfo[static_cast<int>(full_info::email)];
 }
-
-const std::map<std::string, std::string>& Customer::getValuesMap() const noexcept
-{
-    return m_mValues;
-}
-
 
 } // namespace geology

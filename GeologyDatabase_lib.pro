@@ -20,7 +20,10 @@ SOURCES += \
             $$PWD/src/User.cpp \
             $$PWD/include/IDataBaseCtrl.cpp \
             $$PWD/include/DataBaseResponce.cpp \
-            $$PWD/src/DataBase_staff.cpp
+            $$PWD/src/DataBase_staff.cpp \
+            src/Oblast.cpp \
+            src/Raion.cpp \
+            src/poselenie.cpp
 
 HEADERS += \
     $$PWD/src/AuthClientWdg.h \
@@ -34,7 +37,10 @@ HEADERS += \
     $$PWD/src/User.h \
     $$PWD/include/IDataBaseCtrl.h \
     $$PWD/include/DataBaseResponce.h \
-    $$PWD/src/DataBase_staff.h
+    $$PWD/src/DataBase_staff.h \
+    src/Oblast.h \
+    src/Raion.h \
+    src/poselenie.h
 
 
 DESTDIR += $$PWD/lib

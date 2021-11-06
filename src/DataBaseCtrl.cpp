@@ -111,6 +111,12 @@ DataBaseResponce DataBaseCtrl::load(enu_tables eTable, int iCnt, const std::map<
         return load<Customer>(iCnt, Customer{mFilter}, strSortType);
     case enu_tables::e_user:
         return load<User>(iCnt, User{mFilter}, strSortType);
+    case enu_tables::e_oblast:
+        return load<Oblast>(iCnt, Oblast{mFilter}, strSortType);
+    case enu_tables::e_raion:
+        return load<Raion>(iCnt, Raion{mFilter}, strSortType);
+    case enu_tables::e_poselenie:
+        return load<Poselenie>(iCnt, Poselenie{mFilter}, strSortType);
     default:
         return DataBaseResponce{"invalid request"};
     }
@@ -159,6 +165,12 @@ DataBaseResponce DataBaseCtrl::loadById(enu_tables eTable, int iId)
         return loadById<Customer>(iId);
     case enu_tables::e_user:
         return loadById<User>(iId);
+    case enu_tables::e_oblast:
+        return loadById<Oblast>(iId);
+    case enu_tables::e_poselenie:
+        return loadById<Poselenie>(iId);
+    case enu_tables::e_raion:
+        return loadById<Raion>(iId);
     default:
         return DataBaseResponce{"invalid request"};
     }
@@ -173,6 +185,12 @@ DataBaseResponce DataBaseCtrl::write(enu_tables eTable, const std::map<std::stri
         return write<Customer>( Customer{mArgs});
     case enu_tables::e_user:
         return write<User>( User{mArgs});
+    case enu_tables::e_oblast:
+        return write<Oblast>(Oblast{mArgs});
+    case enu_tables::e_poselenie:
+        return write<Poselenie>(Poselenie{mArgs});
+    case enu_tables::e_raion:
+        return write<Raion>(Raion{mArgs});
     default:
         return DataBaseResponce{"invalid request"};
     }

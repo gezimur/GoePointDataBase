@@ -7,6 +7,9 @@
 #include "Order.h"
 #include "Customer.h"
 #include "User.h"
+#include "Oblast.h"
+#include "poselenie.h"
+#include "Raion.h"
 #include "PGConnection.h"
 #include "IDataBaseCtrl.h"
 

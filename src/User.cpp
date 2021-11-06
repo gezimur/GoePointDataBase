@@ -6,7 +6,7 @@ namespace geology
 {
 
 User::User(const std::map<std::string, std::string>& mVal)
-    : m_mValues(mVal)
+    : IDataType(mVal)
 {
 
 }
@@ -64,11 +64,5 @@ void User::setFullInfo(const std::vector<std::string>& vFullInfo)
     m_mValues["username"] = vFullInfo[static_cast<int>(full_info::username)];
     m_mValues["password"] = vFullInfo[static_cast<int>(full_info::password)];
 }
-
-const std::map<std::string, std::string>& User::getValuesMap() const noexcept
-{
-    return m_mValues;
-}
-
 
 } // namespace geology

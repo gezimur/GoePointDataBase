@@ -26,9 +26,9 @@ int main()
     {
         auto upCtrl = geology::make_ctrl(geology::ConnectionParams{"test_config\\config.txt"});
 
-        auto Res = upCtrl->load(geology::IDataBaseCtrl::e_user, 1, {{"username", "zgm_manager"}, {"password", "1234"}}, "");
+//        auto Res = upCtrl->load(geology::IDataBaseCtrl::e_user, 1, {{"username", "zgm_manager"}, {"password", "1234"}}, "");
 
-        print_res(Res);
+//        print_res(Res);
 
 //        Res = upCtrl->loadOrderGreedy(10, {{"work_type", "simple work"}}, "");
 
@@ -42,7 +42,23 @@ int main()
 
 //        print_res(Res);
 
-        Res = upCtrl->load(geology::IDataBaseCtrl::e_order, 10, {{"work_type", "work"}}, "");
+//        Res = upCtrl->load(geology::IDataBaseCtrl::e_order, 10, {{"work_type", "work"}}, "");
+
+//        print_res(Res);
+
+        upCtrl->write(geology::IDataBaseCtrl::e_oblast, {{"full_name", "test Oblast"}});
+        print_res(upCtrl->write(geology::IDataBaseCtrl::e_raion, {{"full_name", "test Raion"}, {"type", "0"}, {"type", "1"}}));
+        print_res(upCtrl->write(geology::IDataBaseCtrl::e_raion, {{"full_name", "test Poselenie"}, {"type", "0"}, {"raion", "1"}}));
+
+        auto Res = upCtrl->load(geology::IDataBaseCtrl::e_oblast, 10, {}, "");
+
+        print_res(Res);
+
+        Res = upCtrl->load(geology::IDataBaseCtrl::e_poselenie, 10, {}, "");
+
+        print_res(Res);
+
+        Res = upCtrl->load(geology::IDataBaseCtrl::e_raion, 10, {}, "");
 
         print_res(Res);
 

@@ -6,7 +6,7 @@ namespace geology
 {
 
 Order::Order(const std::map<std::string, std::string>& mVal)
-    : m_mValues(mVal)
+    : IDataType(mVal)
 {
 
 }
@@ -88,11 +88,6 @@ void Order::setFullInfo(const std::vector<std::string>& vFullInfo)
     m_mValues["ingeneer"] = vFullInfo[static_cast<int>(full_info::ingeneer)];
     m_mValues["fielder"] = vFullInfo[static_cast<int>(full_info::fielder)];
     m_mValues["customer"] = vFullInfo[static_cast<int>(full_info::customer)];
-}
-
-const std::map<std::string, std::string>& Order::getValuesMap() const noexcept
-{
-    return m_mValues;
 }
 
 } // namespace geology
